@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valuamor.id</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="floating-hearts">
+        <span class="heart h1">💕</span>
+        <span class="heart h2">💖</span>
+        <span class="heart h3">💗</span>
+        <span class="heart h4">💝</span>
+        <span class="heart h5">💕</span>
+        <span class="heart h6">💖</span>
+        <span class="heart h7">💗</span>
+        <span class="heart h8">💝</span>
+        <span class="heart h9">💕</span>
+        <span class="heart h10">💖</span>
+    </div>
+
+    <div class="sparkle-overlay"></div>
+
+    <div class="container">
+        <div class="envelope-container" id="envelope-container">
+            <div class="envelope" id="envelope" onclick="openEnvelope()">
+                <div class="envelope-top"></div>
+                <div class="envelope-body">
+                    <div class="envelope-heart">💌</div>
+                    <p class="envelope-text">Tap untuk membuka</p>
+                </div>
+                <div class="envelope-shadow"></div>
+            </div>
+            <div class="envelope-glow"></div>
+        </div>
+
+        <div class="card hidden" id="welcome-screen">
+            <div class="letter-header">
+                <span class="letter-icon">💌</span>
+                <span class="letter-line"></span>
+            </div>
+            <div class="profile-container">
+                <div class="profile-ring">
+                    <div class="profile-image">
+                        <img src="https://api.dicebear.com/7.x/lorelei/svg?seed=Apis&backgroundColor=ffb6c1" alt="Profile">
+                    </div>
+                </div>
+            </div>
+            <h1 class="title-glow">Valuamor.id</h1>
+            <p class="subtitle">Sebuah pesan spesial untukmu</p>
+            <div class="sparkle-line"></div>
+            <div class="input-group">
+                <label for="nama">Masukkan Nama Kamu:</label>
+                <input type="text" id="nama" placeholder="Nama kamu...">
+            </div>
+            <button type="button" class="btn primary" onclick="startQuest()">Mulai</button>
+        </div>
+
+        <div class="card hidden" id="quest1">
+            <div class="quest-header">
+                <span class="quest-number">1</span>
+            </div>
+            <h2>Hallo! Apa Kabar?</h2>
+            <div class="hearts-decoration">
+                <span>💕</span><span>💕</span><span>💕</span>
+            </div>
+            <p class="cute-text">Semoga hari mu menyenangkan ya!</p>
+            <button type="button" class="btn primary" onclick="nextQuest(2)">Hallo!</button>
+        </div>
+
+        <div class="card hidden" id="quest2">
+            <div class="quest-header">
+                <span class="quest-number">2</span>
+            </div>
+            <h2>Kamu kenal Apis gak?</h2>
+            <div class="cute-emoji">🤔</div>
+            <div class="button-group">
+                <button type="button" class="btn primary" onclick="nextQuest(3)">Iya</button>
+                <button type="button" class="btn secondary escape-btn" id="noBtn1" onmouseover="moveButton(this)" onclick="moveButton(this)">Ga</button>
+            </div>
+        </div>
+
+        <div class="card hidden" id="quest3">
+            <div class="quest-header">
+                <span class="quest-number">3</span>
+            </div>
+            <h2>Rating Sifat & Gaya Bicara Apis</h2>
+            <p class="info-text">Pilih rating dengan bintang (1-90)</p>
+            <div class="rating-container">
+                <div class="star-display">
+                    <div class="star-box">
+                        <span id="starCount">0</span>
+                        <span class="star-icon">⭐</span>
+                    </div>
+                </div>
+                <div class="star-visual" id="starVisual"></div>
+                <div class="rating-controls">
+                    <button type="button" class="btn small" onclick="changeRating(-10)">-10</button>
+                    <button type="button" class="btn small" onclick="changeRating(-1)">-1</button>
+                    <input type="range" id="ratingSlider" min="1" max="90" value="1" oninput="updateRating(this.value)">
+                    <button type="button" class="btn small" onclick="changeRating(1)">+1</button>
+                    <button type="button" class="btn small" onclick="changeRating(10)">+10</button>
+                </div>
+                <div class="rating-label" id="ratingLabel">Hmm... kasih yang lebih dong! 🥺</div>
+            </div>
+            <button type="button" class="btn primary" id="ratingNextBtn" onclick="submitRating()">Lanjut</button>
+        </div>
+
+        <div class="card hidden" id="quest4">
+            <div class="quest-header">
+                <span class="quest-number">4</span>
+            </div>
+            <h2>Catatan buat Apis? 📝</h2>
+            <div class="cute-emoji">💌</div>
+            <div class="input-group">
+                <textarea id="catatan" placeholder="Tulis catatan kamu di sini..." rows="4"></textarea>
+            </div>
+            <button type="button" class="btn primary" onclick="nextQuest(5)">Kirim & Lanjut</button>
+        </div>
+
+        <div class="card hidden" id="quest5">
+            <div class="quest-header">
+                <span class="quest-number">5</span>
+            </div>
+            <h2>Apa yang harus Apis ubah? 🔄</h2>
+            <div class="cute-emoji">💭</div>
+            <div class="input-group">
+                <textarea id="ubah" placeholder="Tulis jawaban kamu..." rows="4"></textarea>
+            </div>
+            <button type="button" class="btn primary" onclick="nextQuest(6)">Lanjut</button>
+        </div>
+
+        <div class="card hidden" id="quest6">
+            <div class="quest-header">
+                <span class="quest-number">6</span>
+            </div>
+            <h2>Apa yang harus Apis hindari agar kamu ga ngambek? 😤</h2>
+            <div class="cute-emoji">🙈</div>
+            <div class="input-group">
+                <textarea id="hindari" placeholder="Tulis jawaban kamu..." rows="4"></textarea>
+            </div>
+            <button type="button" class="btn primary" onclick="nextQuest(7)">Lanjut</button>
+        </div>
+
+        <div class="card hidden" id="quest7">
+            <div class="quest-header">
+                <span class="quest-number">7</span>
+            </div>
+            <h2>Apakah kamu suka Apis? 💕</h2>
+            <div class="hearts-decoration large">
+                <span>💖</span><span>💖</span><span>💖</span>
+            </div>
+            <div class="button-group">
+                <button type="button" class="btn primary" onclick="answerSuka('Iya')">Iya</button>
+                <button type="button" class="btn secondary escape-btn" id="noBtn2" onmouseover="moveButton(this)" onclick="moveButton(this)">Engga</button>
+            </div>
+        </div>
+
+        <div class="card hidden" id="quest8">
+            <div class="quest-header">
+                <span class="quest-number">8</span>
+            </div>
+            <h2>Hai <span id="namaDisplay"></span>, kamu beneran suka ga? 🥺</h2>
+            <div class="hearts-decoration large">
+                <span>💕</span><span>💝</span><span>💕</span>
+            </div>
+            <div class="button-group">
+                <button type="button" class="btn primary" id="yesBtn8" onclick="finalAnswer('Iya')">Iya</button>
+                <button type="button" class="btn secondary escape-btn" id="noBtn3" onmouseover="moveButton(this)" onclick="moveButton(this)">No</button>
+            </div>
+            <div id="kenapaBox" class="hidden">
+                <p>Kenapa? 😢</p>
+                <textarea id="kenapa" placeholder="Ceritakan kenapa..." rows="3"></textarea>
+                <button type="button" class="btn primary" onclick="sendWithKenapa()">Kirim</button>
+            </div>
+        </div>
+
+        <div class="card hidden" id="finalScreen">
+            <div class="confetti-container" id="confetti"></div>
+            <div class="success-animation">
+                <div class="checkmark-ring">
+                    <div class="checkmark">✓</div>
+                </div>
+            </div>
+            <h2 class="success-title">Terima Kasih! 💕</h2>
+            <p class="final-message" id="finalMessage"><span id="namaFinal"></span></p>
+            <div class="hearts-rain">
+                <span>💕</span><span>💖</span><span>💗</span><span>💝</span><span>💕</span>
+            </div>
+            <div class="love-meter">
+                <div class="love-fill"></div>
+            </div>
+            <div class="team-badge">
+                <span class="badge-icon">🎀</span>
+                <span class="badge-text">Tim Support Valuamor.id</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification hidden" id="notification">
+        <div class="notification-content">
+            <span class="notification-icon">💕</span>
+            <p id="notificationText"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
